@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// USAGE: ./1 | speakerpipe
+// USAGE: ./1 | speakerpipe -r 4000 -b
 // ALSO COOL: ./1 | speakerpipe -r "44.1 kHz" (sounds weird and rhythmic)
 
 int main(){
