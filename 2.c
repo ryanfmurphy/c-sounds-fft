@@ -6,9 +6,9 @@
 int main(){
 	int t;
 	for (t=0;;t++) {
-		fputc(
+		putchar(
 			(t*(t>>5|t>>8))>>(t>>16)
-		, stdout);
+		);
 	}
 	return 0;
 }
