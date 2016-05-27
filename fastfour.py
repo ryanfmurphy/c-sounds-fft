@@ -1,5 +1,21 @@
 import numpy as np
-with open('funsounds.wav','rb') as fh:
-    data = fh.read()
+import sys
+import matplotlib.pyplot as plt
+'''
+def arr_from_stdin(chunk_size)
+    data = sys.stdin.read(chunk_size)
     arr = np.frombuffer(data,dtype=np.uint8)
+    if arr.shape != (chunk_size,):
+      raise IOError("not enough bytes for a chunk")
+    return arr
+'''
+
+#with open('funsounds.wav','rb') as fh:
+if True:
+    data = sys.stdin.read(128*1024)
+    arr = np.frombuffer(data,dtype=np.uint8)
+    bins = np.fft.fft(arr,n=100000)
+    plt.plot(bins)
+    sys.stdout.write(data)
+    plt.show()
 
