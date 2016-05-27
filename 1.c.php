@@ -4,19 +4,26 @@
 // ALSO COOL: ./1 | speakerpipe -r "44.1 kHz" (sounds weird and rhythmic)
 
 <?php
-    $shifts = array(0,19,2,10);
-    $n = 0;
+    if ($vars['which'] == 1) {
+        $n = 0;
 
-    function rotate_array(&$array) {
-        $backItem = array_pop($array);
-        array_unshift($array, $backItem);
-        return $array;
-    }
+        function rotate_array(&$array) {
+            $backItem = array_pop($array);
+            array_unshift($array, $backItem);
+            return $array;
+        }
 
-    $nShifts = rand(0,3);
-    for ($i=0;$i<$nShifts;$i++) {
-        rotate_array($shifts);
-    }
+        $vars['nShifts'] = rand(0,3);
+        for ($i=0;$i<$vars['nShifts'];$i++) {
+            rotate_array($vars['shifts']);
+        }
+
+        function shift_array() {
+            global $vars, $n;
+            $result = $vars['shifts'][$n];
+            $n++;
+            return $result;
+        }
 ?>
 
 int main(){
@@ -26,13 +33,22 @@ int main(){
 			//t*((t>>12|t>>8)&63&t>>4)
 			t*
             (
-                (t >> <?= $shifts[$n]; $n++; ?>
-                |t >> <?= $shifts[$n]; $n++; ?>
+                (t >> <?= shift_array() ?>
+                |t >> <?= shift_array() ?>
                 )
-                & <?= $shifts[$n]; $n++; ?>
-                & t >> <?= $shifts[$n]; $n++; ?>
+                & <?= shift_array() ?>
+                & t >> <?= shift_array() ?>
             )
 		);
 	}
 	return 0;
 }
+<?php
+    }
+    elseif ($vars['which'] == 2) {
+        echo file_get_contents('2.c');
+    }
+    else {
+        throw new Exception("Unexpected 'which' value");
+    }
+?>
