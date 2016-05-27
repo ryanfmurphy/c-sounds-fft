@@ -4,7 +4,7 @@
 // ALSO COOL: ./1 | speakerpipe -r "44.1 kHz" (sounds weird and rhythmic)
 
 <?php
-    if ($vars['which'] == 1) {
+    if ($vars->which == 1) {
         $n = 0;
 
         function rotate_array(&$array) {
@@ -13,14 +13,14 @@
             return $array;
         }
 
-        $vars['nShifts'] = rand(0,3);
-        for ($i=0;$i<$vars['nShifts'];$i++) {
-            rotate_array($vars['shifts']);
+        $vars->nShifts = rand(0,3);
+        for ($i=0;$i<$vars->nShifts;$i++) {
+            rotate_array($vars->shifts);
         }
 
         function shift_array() {
             global $vars, $n;
-            $result = $vars['shifts'][$n];
+            $result = $vars->shifts[$n];
             $n++;
             return $result;
         }
@@ -45,7 +45,7 @@ int main(){
 }
 <?php
     }
-    elseif ($vars['which'] == 2) {
+    elseif ($vars->which == 2) {
         echo file_get_contents('2.c');
     }
     else {

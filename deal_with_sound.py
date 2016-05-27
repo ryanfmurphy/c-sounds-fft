@@ -1,16 +1,26 @@
-<?php
-    $vars = array(
-        'which' => rand(1,2),
-        'shifts' => array(0,19,2,10)
-    );
-    echo "Got vars\n";
 
-    function runCommandInBackground($cmd) {
-        exec("bash -c 'exec nohup setsid $cmd > /dev/null 2>&1 &'");
-    }
+#call php with vars
+#popen executing the c code
+import random
+import subprocess
+import json
 
-    { #todo make background task
-        require_once('make_sound_code.php');
+vars = json.dumps({'which': random.randint(1,2),
+        'shifts': [0,19,2,10]})
+
+subprocess.call(['php', 'make_sound_code.php', vars])
+our_process = subprocess.Popen(['./1php'])
+stdout,stderr = our_process.communicate()
+
+with open('test.pcm','wb') as fh:
+        for x in range(1):
+            data = stdout.read(1024)
+            fh.write(data)
+            sys.stdout.write(data)
+
+"""
+
+
         /*runCommandInBackground(
             "php make_sound_code.php "
             .escapeshellarg(json_encode($vars))
@@ -63,3 +73,4 @@
         }
     }
 ?>
+"""
