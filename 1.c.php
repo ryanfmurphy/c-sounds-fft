@@ -4,7 +4,7 @@
 // ALSO COOL: ./1 | speakerpipe -r "44.1 kHz" (sounds weird and rhythmic)
 
 <?php
-    $shifts = array(0,9,2,10);
+    $shifts = array(0,19,2,10);
     $n = 0;
 
     function rotate_array(&$array) {
